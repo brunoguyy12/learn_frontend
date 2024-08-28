@@ -105,7 +105,10 @@ export default function Home() {
             className="size-7 text-blue-500 md:hidden block"
             onClick={() => setShowMenuBar(true)}
           />
-          <Button variant={"default"} className="bg-blue-600 px-5">
+          <Button
+            variant={"default"}
+            className="hidden md:block bg-blue-600 px-5"
+          >
             Get Started
           </Button>
         </div>
