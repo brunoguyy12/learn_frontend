@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import { Montserrat, Inter } from "next/font/google";
 import Image from "next/image";
+import { motion, useSpring } from "framer-motion";
 import { StarIcon, HashIcon, MenuIcon, XIcon } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -52,6 +53,10 @@ export default function Home() {
   //     };
   //   }, []);
 
+  const rateCount = useSpring(0, {
+    bounce: 0,
+    duration: 1000,
+  });
   const [showMenuBar, setShowMenuBar] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -262,18 +267,25 @@ export default function Home() {
           />
           <div className="flex flex-col justify-center">
             <h3 className="text-xl font-semibold">About us</h3>
-            <h2 className="text-5xl font-bold my-3">
+            <motion.h2
+              initial={{ x: "50%", opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ duration: 1 }}
+              className="text-5xl font-bold my-3"
+            >
               Empowering farmers for a brighter future
-            </h2>
+            </motion.h2>
             <div className="my-4 space-y-3">
               {providedSolutions.map((solution) => (
                 <div className="flex flex-col gap-1" key={solution.id}>
                   <p className="text-lg">{solution.name}</p>
                   <div className="w-full h-2 bg-slate-100 rounded-lg overflow-hidden">
-                    <div
+                    <motion.div
                       className={`h-full bg-blue-600`}
-                      style={{ width: `${solution.percentage}%` }}
-                    ></div>
+                      initial={{ width: 0 }}
+                      transition={{ duration: 1 }}
+                      animate={{ width: `${solution.percentage}%` }}
+                    ></motion.div>
                   </div>
                 </div>
               ))}
