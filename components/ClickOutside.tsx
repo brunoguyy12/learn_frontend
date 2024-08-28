@@ -25,7 +25,7 @@ const ClickOutside = ({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [onClick]);
 
   return <div ref={clickRef}>{children}</div>;
 };
