@@ -1,8 +1,8 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Montserrat, Inter } from "next/font/google";
 import Image from "next/image";
-import { StarIcon, HashIcon } from "lucide-react";
+import { StarIcon, HashIcon, MenuIcon, XIcon } from "lucide-react";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -52,6 +52,8 @@ export default function Home() {
   //     };
   //   }, []);
 
+  const [setshowMenuBar, setSetshowMenuBar] = useState(false);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -84,7 +86,7 @@ export default function Home() {
             Tamasa Consulting
             <span className=" block w-2 h-2 self-center rounded-full bg-blue-600 mx-3 "></span>
           </p>
-          <ul className="flex gap-6">
+          <ul className="md:flex gap-6 hidden">
             {links.map((link) => (
               <li
                 key={link}
@@ -94,15 +96,40 @@ export default function Home() {
               </li>
             ))}
           </ul>
+          <MenuIcon
+            className="size-7 text-blue-500 md:hidden block"
+            onClick={() => setSetshowMenuBar(true)}
+          />
           <Button variant={"default"} className="bg-blue-600 px-5">
             Get Started
           </Button>
         </div>
       </header>
+      {setshowMenuBar && (
+        <div className="bg-white fixed top-0 right-0 w-2/3 h-full z-50 flex justify-center items-center">
+          <XIcon
+            className="size-7 text-blue-500 md:hidden block absolute right-2 top-2"
+            onClick={() => setSetshowMenuBar(false)}
+          />
+          <div className="flex flex-col gap-6 p-6">
+            {links.map((link) => (
+              <p
+                key={link}
+                className="text-lg font-medium py-3 px-2 border-2 border-transparent transition-all duration-300 hover:border-b-blue-600"
+              >
+                {link}
+              </p>
+            ))}
+            <Button variant={"default"} className="bg-blue-600 px-5">
+              Get Started
+            </Button>
+          </div>
+        </div>
+      )}
 
       <section className=" relative bg-slate-300/35 py-12 before:bg-[url(/Good_bg.webp)] before:bg-[length:500px_auto] before:bg-repeat before:w-full before:h-full before:block">
-        <div className="persoContainer flex justify-between items-center py-2">
-          <div className="p-3 w-3/5 flex flex-col gap-4">
+        <div className="persoContainer flex flex-col md:flex-row justify-between items-center py-2">
+          <div className="p-3 w-full  md:w-3/5 flex flex-col gap-4">
             <p className="border border-transparent ps-2 border-l-black flex items-center text-black font-medium">
               <HashIcon className="size-4" />
               &nbsp;{HeadingArray[0]}
@@ -147,7 +174,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="w-2/5">
+          <div className="w-full md:w-2/5">
             <Form {...form}>
               <form
                 onSubmit={form.handleSubmit(onSubmit)}
