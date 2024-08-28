@@ -52,7 +52,7 @@ export default function Home() {
   //     };
   //   }, []);
 
-  const [setshowMenuBar, setSetshowMenuBar] = useState(false);
+  const [showMenuBar, setShowMenuBar] = useState(false);
 
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
@@ -81,7 +81,7 @@ export default function Home() {
       <header className="bg-white">
         <div className="persoContainer flex justify-between items-center py-2">
           <p
-            className={`text-lg flex justify-end font-medium ${montserrat.className}`}
+            className={`text-md md:text-lg flex justify-end font-medium ${montserrat.className}`}
           >
             Tamasa Consulting
             <span className=" block w-2 h-2 self-center rounded-full bg-blue-600 mx-3 "></span>
@@ -98,34 +98,36 @@ export default function Home() {
           </ul>
           <MenuIcon
             className="size-7 text-blue-500 md:hidden block"
-            onClick={() => setSetshowMenuBar(true)}
+            onClick={() => setShowMenuBar(true)}
           />
           <Button variant={"default"} className="bg-blue-600 px-5">
             Get Started
           </Button>
         </div>
       </header>
-      {setshowMenuBar && (
-        <div className="bg-white fixed top-0 right-0 w-2/3 h-full z-50 flex justify-center items-center">
-          <XIcon
-            className="size-7 text-blue-500 md:hidden block absolute right-2 top-2"
-            onClick={() => setSetshowMenuBar(false)}
-          />
-          <div className="flex flex-col gap-6 p-6">
-            {links.map((link) => (
-              <p
-                key={link}
-                className="text-lg font-medium py-3 px-2 border-2 border-transparent transition-all duration-300 hover:border-b-blue-600"
-              >
-                {link}
-              </p>
-            ))}
-            <Button variant={"default"} className="bg-blue-600 px-5">
-              Get Started
-            </Button>
-          </div>
+      <div
+        className={`bg-white fixed top-0  w-[300px] h-full z-50 flex justify-center transition-all duration-700 items-center ${
+          showMenuBar ? "right-0" : "right-[-300px]"
+        }`}
+      >
+        <XIcon
+          className="size-7 text-blue-500 md:hidden block absolute right-2 top-2"
+          onClick={() => setShowMenuBar(false)}
+        />
+        <div className="flex flex-col gap-6 p-6">
+          {links.map((link) => (
+            <p
+              key={link}
+              className="text-lg font-medium py-3 px-2 border-2 border-transparent transition-all duration-300 hover:border-b-blue-600"
+            >
+              {link}
+            </p>
+          ))}
+          <Button variant={"default"} className="bg-blue-600 px-5">
+            Get Started
+          </Button>
         </div>
-      )}
+      </div>
 
       <section className=" relative bg-slate-300/35 py-12 before:bg-[url(/Good_bg.webp)] before:bg-[length:500px_auto] before:bg-repeat before:w-full before:h-full before:block">
         <div className="persoContainer flex flex-col md:flex-row justify-between items-center py-2">
