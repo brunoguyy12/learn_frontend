@@ -141,10 +141,17 @@ export default function Home() {
               <HashIcon className="size-4" />
               &nbsp;{HeadingArray[0]}
             </p>
-            <h1 className="text-5xl font-bold leading-tight">
-              Driving sustainable agricultural solutions
-              <br /> across Kenya
-            </h1>
+            <div className="overflow-hidden">
+              <motion.h1
+                transition={{ duration: 0.5 }}
+                initial={{ x: "-100%" }}
+                animate={{ x: "0" }}
+                className="text-5xl font-bold leading-tight"
+              >
+                Driving sustainable agricultural solutions
+                <br /> across Kenya
+              </motion.h1>
+            </div>
             <p className="text-lg">
               Welcome to Tamasa Consulting, the premier agricultural consulting
               firm in Kenya. We offer innovative solutions and practical support
